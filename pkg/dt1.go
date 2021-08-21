@@ -3,9 +3,10 @@ package pkg
 import (
 	"bytes"
 	"fmt"
-	"github.com/gravestench/bitstream"
 	"image/color"
 	"math"
+
+	"github.com/OpenDiablo2/bitstream"
 )
 
 
