@@ -6,9 +6,8 @@ import (
 	"image/color"
 	"math"
 
-	"github.com/OpenDiablo2/bitstream"
+	"github.com/gravestench/bitstream"
 )
-
 
 // FromBytes loads a DT1 record
 func FromBytes(fileData []byte) (result *DT1, err error) {
@@ -28,7 +27,7 @@ func FromBytes(fileData []byte) (result *DT1, err error) {
 
 // DT1 represents a DT1 file.
 type DT1 struct {
-	Tiles 	[]*Tile
+	Tiles   []*Tile
 	palette color.Palette
 }
 
@@ -46,7 +45,7 @@ const (
 func (d *DT1) decodeDT1Header(stream *bitstream.Reader) error {
 	const (
 		unknownDataBytes = 260
-		numTileBytes = 4
+		numTileBytes     = 4
 		dataAddressBytes = 4
 	)
 
