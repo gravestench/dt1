@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"bytes"
 	"fmt"
 	"image/color"
 	"math"
@@ -12,7 +11,7 @@ import (
 // FromBytes loads a DT1 record
 func FromBytes(fileData []byte) (result *DT1, err error) {
 	result = &DT1{}
-	stream := bitstream.NewReader(bytes.NewReader(fileData))
+	stream := bitstream.ReaderFromBytes(fileData...)
 
 	if err = result.decodeDT1Header(stream); err != nil {
 		return nil, err
@@ -204,10 +203,10 @@ func (t *Tile) decodeBlockHeaders(stream *bitstream.Reader) (err error) {
 
 		formatValue, _ := stream.Next(blockFormatValueBytes).Bytes().AsInt16()
 
-		block.Format = BlockFormatRLE
+		block.format = BlockFormatRLE
 
 		if formatValue == 1 {
-			block.Format = BlockFormatIsometric
+			block.format = BlockFormatIsometric
 		}
 
 		block.Length, _ = stream.Next(blockLengthBytes).Bytes().AsInt32()
@@ -257,6 +256,10 @@ func (d *DT1) Palette() color.Palette {
 	}
 
 	return d.palette
+}
+
+func (d *DT1) SetPalette(p color.Palette) {
+	d.palette = p
 }
 
 func defaultPalette() color.Palette {

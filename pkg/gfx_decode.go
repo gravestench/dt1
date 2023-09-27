@@ -13,9 +13,9 @@ func (d *DT1) decodeTileGraphics() {
 		}
 
 		for _, block := range tile.Blocks {
-			block.PixelData = make([]byte, tw * th)
+			block.PixelData = make([]byte, tw*th)
 
-			if block.Format == BlockFormatIsometric {
+			if block.format == BlockFormatIsometric {
 				block.decodeIsometric(tw, yOffset)
 
 				continue
@@ -51,23 +51,26 @@ the way the data is encoded is in runs of non-blank pixels
 in the following diagram, an `x` is an opaque pixel
 
 xjump -------|
-             |
-             v
-              xxxx <----- nbpix[0] == 4
-            xxxxxxxx <----- nbpix[1] == 8
-          xxxxxxxxxxxx
-        xxxxxxxxxxxxxxxx
-      xxxxxxxxxxxxxxxxxxxx
-    xxxxxxxxxxxxxxxxxxxxxxxx
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+	           |
+	           v
+	            xxxx <----- nbpix[0] == 4
+	          xxxxxxxx <----- nbpix[1] == 8
+	        xxxxxxxxxxxx
+	      xxxxxxxxxxxxxxxx
+	    xxxxxxxxxxxxxxxxxxxx
+	  xxxxxxxxxxxxxxxxxxxxxxxx
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    xxxxxxxxxxxxxxxxxxxxxxxx
-      xxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxx
-          xxxxxxxxxxxx
-            xxxxxxxx
-              xxxx
+
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	  xxxxxxxxxxxxxxxxxxxxxxxx
+	    xxxxxxxxxxxxxxxxxxxx
+	      xxxxxxxxxxxxxxxx
+	        xxxxxxxxxxxx
+	          xxxxxxxx
+	            xxxx
 
 `xjump` is the number of pixels from the left edge, for each group of non-blank pixels
 the index into xjump is the current row
@@ -77,7 +80,7 @@ the index into nbpix is the current row
 
 the encoding relies on the 0-value being encoded as the default palette index
 for each pixel, which is always(?) the transparent color of the palette being used
- */
+*/
 func (block *Block) decodeIsometric(w, yOffset int32) {
 	const (
 		blockDataLength = 256
@@ -85,7 +88,6 @@ func (block *Block) decodeIsometric(w, yOffset int32) {
 
 	xjump := []int32{14, 12, 10, 8, 6, 4, 2, 0, 2, 4, 6, 8, 10, 12, 14}
 	nbpix := []int32{4, 8, 12, 16, 20, 24, 28, 32, 28, 24, 20, 16, 12, 8, 4}
-
 
 	// 3D isometric decoding
 	blockX := int32(block.X)

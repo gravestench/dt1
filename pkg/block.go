@@ -9,17 +9,17 @@ var _ image.PalettedImage = &Block{}
 
 // Block represents a DT1 block
 type Block struct {
-	tile 		*Tile
+	tile        *Tile
 	X           int16
 	Y           int16
 	GridX       byte
 	GridY       byte
-	Format      BlockDataFormat
+	format      BlockDataFormat
 	EncodedData []byte
 	Length      int32
 	FileOffset  int32
-	PixelData 	[]byte
-	image 		*image.RGBA
+	PixelData   []byte
+	image       *image.RGBA
 }
 
 func (block *Block) ColorIndexAt(x, y int) uint8 {
@@ -52,3 +52,11 @@ func (block *Block) At(x, y int) color.Color {
 	return pal[palIdx]
 }
 
+// Format returns block format
+func (b *Block) Format() BlockDataFormat {
+	if b.format == 1 {
+		return BlockFormatIsometric
+	}
+
+	return BlockFormatRLE
+}
