@@ -57,6 +57,42 @@ func (t *Tile) Image() image.Image {
 	return compositeImage(imgFloor, imgWall)
 }
 
+func (t *Tile) WallImage() image.Image {
+	_, wallPix := t.makePixelBuffer()
+	if len(wallPix) == 0 {
+		return nil
+	}
+
+	tw, th := int(t.Width), int(t.Height)
+	if th < 0 {
+		th *= -1
+	}
+
+	rect := image.Rect(0, 0, tw, th)
+	imgWall := image.NewRGBA(rect)
+	imgWall.Pix = wallPix
+
+	return imgWall
+}
+
+func (t *Tile) FloorImage() image.Image {
+	floorPix, _ := t.makePixelBuffer()
+	if len(floorPix) == 0 {
+		return nil
+	}
+
+	tw, th := int(t.Width), int(t.Height)
+	if th < 0 {
+		th *= -1
+	}
+
+	rect := image.Rect(0, 0, tw, th)
+	imgFloor := image.NewRGBA(rect)
+	imgFloor.Pix = floorPix
+
+	return imgFloor
+}
+
 // Composite creates a new image by drawing src on top of dst.
 func compositeImage(dst, src image.Image) *image.RGBA {
 	// Initialize a blank RGBA image with the size of dst

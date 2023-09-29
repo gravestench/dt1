@@ -50,27 +50,24 @@ func (d *DT1) determineYOffset() (yOffset int32) {
 the way the data is encoded is in runs of non-blank pixels
 in the following diagram, an `x` is an opaque pixel
 
-xjump -------|
-
-	           |
-	           v
-	            xxxx <----- nbpix[0] == 4
-	          xxxxxxxx <----- nbpix[1] == 8
-	        xxxxxxxxxxxx
-	      xxxxxxxxxxxxxxxx
-	    xxxxxxxxxxxxxxxxxxxx
-	  xxxxxxxxxxxxxxxxxxxxxxxx
-	xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-	xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-	  xxxxxxxxxxxxxxxxxxxxxxxx
-	    xxxxxxxxxxxxxxxxxxxx
-	      xxxxxxxxxxxxxxxx
-	        xxxxxxxxxxxx
-	          xxxxxxxx
-	            xxxx
+	  xjump -------|
+		           |
+		           v
+		            xxxx <----- nbpix[0] == 4
+		          xxxxxxxx <----- nbpix[1] == 8
+		        xxxxxxxxxxxx
+		      xxxxxxxxxxxxxxxx
+		    xxxxxxxxxxxxxxxxxxxx
+		  xxxxxxxxxxxxxxxxxxxxxxxx
+		xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+		xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+		  xxxxxxxxxxxxxxxxxxxxxxxx
+		    xxxxxxxxxxxxxxxxxxxx
+		      xxxxxxxxxxxxxxxx
+		        xxxxxxxxxxxx
+		          xxxxxxxx
+		            xxxx
 
 `xjump` is the number of pixels from the left edge, for each group of non-blank pixels
 the index into xjump is the current row

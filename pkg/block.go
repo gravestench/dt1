@@ -54,9 +54,5 @@ func (block *Block) At(x, y int) color.Color {
 
 // Format returns block format
 func (b *Block) Format() BlockDataFormat {
-	if b.format == 1 {
-		return BlockFormatIsometric
-	}
-
-	return BlockFormatRLE
+	return b.format
 }
