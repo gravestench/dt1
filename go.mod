@@ -3,7 +3,7 @@ module github.com/gravestench/dt1
 go 1.19
 
 require (
-	github.com/gravestench/bitstream v0.0.0-20230728184458-917abdef8ae3
+	github.com/gravestench/bitstream v0.0.0-20230929165245-6ff3168b856f
 	github.com/stretchr/testify v1.8.4
 )
 
